@@ -1,10 +1,10 @@
 class ReviewsController < ApplicationController
   def create
-    @review = ReviewedBook.new(reviewed_book_params)
-    if @review.save!
-      render json: "Review for #{user_id} and #{book_id} is successfully added!"
+    review = ReviewedBook.new(reviewed_book_params)
+    if review.save!
+      render status: 200, json: "Review for #{review[:user_id]} and #{review[:book_id]} is successfully added!"
     else
-      render json: @review.errors.full_messages
+      render status: 400, json: review.errors.full_messages
     end
   end
 
