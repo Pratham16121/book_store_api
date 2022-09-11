@@ -1,5 +1,10 @@
 class User < ApplicationRecord
-  validates :user_name, uniqueness: true
+  extend Devise::Models
+  # Include default devise modules.
+  devise :database_authenticatable, :registerable,
+          :recoverable, :rememberable, :validatable
+  include DeviseTokenAuth::Concerns::User
+  # validates :user_name, uniqueness: true
 
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
 	validates :email, presence: true, uniqueness:true, format: { with: VALID_EMAIL_REGEX }
